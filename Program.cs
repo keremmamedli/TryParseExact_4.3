@@ -1,0 +1,41 @@
+﻿using System.Globalization;
+
+namespace Datetime_4._3_
+{
+    static class TryParseExact
+    {
+        public static bool TryParseExactVersion2(string input, string format, out DateTime result)
+        {
+            result = DateTime.MinValue; 
+
+            try
+            {
+                result = DateTime.ParseExact(input, format, CultureInfo.InvariantCulture);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string date = "17-06-2023";
+            string format = "dd-mm-yyyy";
+            DateTime parsedDate;
+
+            if (TryParseExact.TryParseExactVersion2(date ,  format, out parsedDate))
+            {
+                Console.WriteLine("True " + parsedDate);
+            }
+            else
+            {
+                Console.WriteLine("False, Something is wrong");
+            }
+        }
+    }
+}
